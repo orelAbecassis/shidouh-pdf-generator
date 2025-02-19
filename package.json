@@ -1,0 +1,21 @@
+{
+    "scripts": {
+        "start": "nodemon src/app.js"
+    },
+    "name": "shidouh-pdf-generator",
+    "version": "1.0.0",
+    "main": "index.js",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@notionhq/client": "^2.2.16",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "html-pdf": "^3.0.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    }
+}
