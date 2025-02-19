@@ -1,232 +1,210 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Profil Shidouhim</title>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
     <style>
-      /* Réinitialisation de base */
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            -webkit-print-color-adjust: exact;
+        }
 
-      /* Enveloppe principale */
-      .wrapper {
-        max-width: 900px;
-        margin: 40px auto;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        overflow: hidden;
-      }
+        .profile-card {
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+        }
 
-      /* En-tête (header) */
-      .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: #fff;
-        padding: 20px 30px;
-        border-bottom: 3px solid #00a5ce; /* barre colorée */
-      }
+        .header {
+            background: #f8f9fa !important;
+            padding: 20px;
+            width: 100%;
+            display: table;
+        }
 
-      .header-left {
-        display: flex;
-        align-items: center;
-      }
-      .header-left svg {
-        width: 50px;
-        height: 50px;
-        margin-right: 10px;
-      }
-      .header-left h1 {
-        font-size: 20px;
-        margin: 0;
-      }
+        .photo-container {
+            display: table-cell;
+            width: 200px;
+            vertical-align: top;
+            padding-right: 20px;
+        }
 
-      .header-right {
-        text-align: right;
-      }
-      .header-right h2 {
-        margin: 0;
-        font-size: 18px;
-        text-transform: uppercase;
-        color: #333;
-      }
-      .header-right p {
-        margin: 4px 0 0;
-        font-size: 14px;
-        color: #555;
-      }
+        .photo-container img {
+            width: 200px;
+            object-fit: cover;
+        }
 
-      /* Contenu principal (formulaire) */
-      .content {
-        padding: 20px 30px 30px;
-      }
+        .basic-info {
+            display: table-cell;
+            vertical-align: top;
+        }
 
-      .formRow {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 15px;
-        /* Évite la coupure d'une ligne sur 2 pages */
-        page-break-inside: avoid;
-        -webkit-column-break-inside: avoid;
-        -moz-column-break-inside: avoid;
-      }
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
 
-      .formGroup {
-        flex: 1;
-      }
-      .formGroup label {
-        display: block;
-        font-size: 12px;
-        margin-bottom: 4px;
-        color: #666;
-      }
-      .formGroup input[type="text"] {
-        width: 100%;
-        padding: 6px;
-        font-size: 14px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
+        .main-details {
+            width: 100%;
+            display: table;
+        }
 
-      /* Bouton de soumission */
-      .submitRow {
-        text-align: center;
-        margin-top: 30px;
-      }
-      .submitRow input[type="submit"] {
-        background-color: #00a5ce;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        font-size: 14px;
-        border-radius: 4px;
-        cursor: pointer;
-      }
+        .main-details-column {
+            display: table-cell;
+            width: 50%;
+            padding-right: 15px;
+        }
 
-      /* Retiré : .footer (le bloc gris du bas) */
+        .content {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa !important;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .grid-info {
+            width: 100%;
+            display: table;
+        }
+
+        .grid-column {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+            padding-right: 15px;
+        }
+
+        .info-item {
+            margin-bottom: 12px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #6c757d;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .value {
+            color: #2c3e50;
+            display: inline-block;
+        }
+
+        .description-section {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+        }
     </style>
-  </head>
-  <body>
-    <div class="wrapper">
-      <!-- En-tête -->
-      <div class="header">
-        <div class="header-left">
-          <!-- Logo provisoire en SVG -->
-          <svg>
-            <circle cx="50%" cy="50%" r="40%" stroke="black" stroke-width="3" fill="black" />
-          </svg>
-        </div>
-        <div class="header-right">
-          <h2>Profil : {{nom}}</h2>
-        </div>
-      </div>
-
-      <!-- Formulaire -->
-      <div class="content">
-        <!-- 1) Age -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Age</label>
-            <input type="text" name="Age" value="{{age}}" />
-          </div>
-        </div>
-        <!-- 2) Genre -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Genre</label>
-            <input type="text" name="Genre" value="{{genre}}" />
-          </div>
-        </div>
-        <!-- 3) Mon Status -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Mon Status</label>
-            <input type="text" name="MonStatus" value="{{monStatus}}" />
-          </div>
-        </div>
-        <!-- 4) Ville d'habitation -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Ville d'habitation</label>
-            <input type="text" name="Ville" value="{{ville}}" />
-          </div>
-        </div>
-        <!-- 5) Niveau de religion (famille) -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Niveau de religion (famille)</label>
-            <input type="text" name="ReligFam" value="{{religFam}}" />
-          </div>
-        </div>
-        <!-- 6) Niveau de religion -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Niveau de religion</label>
-            <input type="text" name="ReligPerso" value="{{religPerso}}" />
-          </div>
-        </div>
-        <!-- 7) Parcours -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Parcours</label>
-            <label type="text" name="Parcours" value="{{parcours}}" />
-          </div>
-        </div>
-        <!-- 8) Profession -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Profession</label>
-            <input type="text" name="Profession" value="{{profession}}" />
-          </div>
-        </div>
-        <!-- 9) Description -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Description</label>
-            <input type="text" name="Description" value="{{description}}" />
-          </div>
-        </div>
-        <!-- 10) Qualités recherchés -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Qualités recherchés</label>
-            <input type="text" name="QualitesRech" value="{{qualitesRech}}" />
-          </div>
-        </div>
-        <!-- 11) Faire L’Alya -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Faire L’Alya</label>
-            <input type="text" name="FaireAlya" value="{{faireAlya}}" />
-          </div>
-        </div>
-        <!-- 12) Communauté Fréquenté -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Communauté Fréquenté</label>
-            <input type="text" name="Communaute" value="{{communaute}}" />
-          </div>
-        </div>
-        <!-- 13) Numéro à contacter + Photo -->
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Numéro à contacter</label>
-            <input type="text" name="Contact" value="{{contact}}" />
-          </div>
-          <br/>
-          <br/>
-
-          <div class="formRow">
-            <div class="formGroup">
-              <img src="{{photo}}" alt="Photo de profil" style="max-width: 120px; border-radius: 4px; margin-top: 6px;" />
+</head>
+<body>
+    <div class="profile-card">
+        <div class="header">
+            <div class="photo-container">
+                <img src="{{photo}}" alt="Photo de profil" onerror="this.src='placeholder.jpg'"/>
             </div>
-          
+            <div class="basic-info">
+                <div class="name">{{nom}}</div>
+                <div class="main-details">
+                    <div class="main-details-column">
+                        <div class="info-item">
+                            <span class="label">Âge:</span> 
+                            <span class="value">{{age}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Taille:</span> 
+                            <span class="value">{{taille}}</span>
+                        </div>
+                    </div>
+                    <div class="main-details-column">
+                        <div class="info-item">
+                            <span class="label">Ville:</span> 
+                            <span class="value">{{ville}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Status:</span> 
+                            <span class="value">{{monStatus}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Profil Personnel</div>
+                <div class="grid-info">
+                    <div class="grid-column">
+                        <div class="info-item">
+                            <span class="label">Genre:</span> 
+                            <span class="value">{{genre}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Profession:</span> 
+                            <span class="value">{{profession}}</span>
+                        </div>
+                    </div>
+                    <div class="grid-column">
+                        <div class="info-item">
+                            <span class="label">Communauté fréquentée:</span> 
+                            <span class="value">{{communaute}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Projet d'Alya:</span> 
+                            <span class="value">{{faireAlya}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+              <div class="section-title">Niveau de religion (famille):</div>
+              <div class="description-section">{{religFam}}</div>
+          </div>
+          <div class="section">
+            <div class="section-title">Niveau de religion (personnel)</div>
+            <div class="description-section">{{religPerso}}</div>
+        </div>
+
+            <div class="section">
+                <div class="section-title">Parcours</div>
+                <div class="description-section">{{parcours}}</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Description</div>
+                <div class="description-section">{{description}}</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Qualités Recherchées</div>
+                <div class="description-section">{{qualitesRech}}</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Contact</div>
+                <div class="info-item">
+                    <span class="label">Numéro à contacter:</span> 
+                    <span class="value">{{contact}}</span>
+                </div>
+            </div>
+        </div>
     </div>
-  </body>
+</body>
 </html>

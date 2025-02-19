@@ -79,29 +79,11 @@ async function generatePdfFromEntry(page) {
       bottom: "1cm",
       left: "1cm"
     },
-    footer: {
-      height: "20mm",
-      contents: {
-        default: `
-          <div style="
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background: #f2f2f2;
-            color: #333;
-            text-align: center;
-            font-size: 10px;
-            padding: 5px;
-          ">
-            <br/>
-            &copy; 2025 Shidouhim. Tous droits réservés Orelabk6 | Contact: 07.81.62.23.57
-            <br/>
-            <br/>
-
-          </div>
-        `
-      }
-    }
+    // Amélioration du rendu
+    quality: "100",
+    printBackground: true, // Important pour les couleurs de fond
+    preferCSSPageSize: true,
   };
-  
 
   return new Promise((resolve, reject) => {
     pdf.create(htmlContent, options).toBuffer((err, buffer) => {
