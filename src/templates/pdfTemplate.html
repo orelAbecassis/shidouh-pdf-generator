@@ -2,19 +2,13 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Job Application</title>
+    <title>Profil Shidouhim</title>
     <style>
       /* Réinitialisation de base */
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-      }
-
-      body {
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        background: #f2f2f2;
-        color: #333;
       }
 
       /* Enveloppe principale */
@@ -71,21 +65,18 @@
         padding: 20px 30px 30px;
       }
 
-      .formLabel {
-        font-weight: bold;
-        margin: 15px 0 5px;
-        display: block;
-        color: #00a5ce;
-        text-transform: uppercase;
-      }
-
       .formRow {
         display: flex;
         gap: 20px;
         margin-bottom: 15px;
+        /* Évite la coupure d'une ligne sur 2 pages */
+        page-break-inside: avoid;
+        -webkit-column-break-inside: avoid;
+        -moz-column-break-inside: avoid;
       }
+
       .formGroup {
-        flex: 1; /* chaque groupe prend la place disponible */
+        flex: 1;
       }
       .formGroup label {
         display: block;
@@ -93,21 +84,12 @@
         margin-bottom: 4px;
         color: #666;
       }
-      .formGroup input[type="text"],
-      .formGroup input[type="email"],
-      .formGroup input[type="tel"],
-      .formGroup select {
+      .formGroup input[type="text"] {
         width: 100%;
         padding: 6px;
         font-size: 14px;
         border: 1px solid #ccc;
         border-radius: 4px;
-      }
-
-      hr {
-        border: none;
-        border-top: 1px solid #ddd;
-        margin: 20px 0;
       }
 
       /* Bouton de soumission */
@@ -125,50 +107,7 @@
         cursor: pointer;
       }
 
-      /* Section T&C (Terms & Conditions) */
-      .terms {
-        margin-top: 30px;
-        font-size: 12px;
-        line-height: 1.5;
-        color: #555;
-      }
-      .terms b {
-        color: #333;
-      }
-
-      /* Pied de page (footer) */
-      .footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: #f2f2f2;
-        padding: 10px 30px;
-        font-size: 12px;
-        color: #666;
-      }
-      .footer a {
-        color: #333;
-        text-decoration: none;
-        margin-right: 10px;
-      }
-      .footer a:first-child {
-        font-weight: bold;
-      }
-
-      /* Responsive : si écran étroit, on empile */
-      @media (max-width: 600px) {
-        .header, .footer {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-        .header-right {
-          margin-top: 10px;
-          text-align: left;
-        }
-        .formRow {
-          flex-direction: column;
-        }
-      }
+      /* Retiré : .footer (le bloc gris du bas) */
     </style>
   </head>
   <body>
@@ -180,130 +119,114 @@
           <svg>
             <circle cx="50%" cy="50%" r="40%" stroke="black" stroke-width="3" fill="black" />
           </svg>
-          <h1>{{nom}}</h1>
+        </div>
+        <div class="header-right">
+          <h2>Profil : {{nom}}</h2>
         </div>
       </div>
 
       <!-- Formulaire -->
       <div class="content">
-        <!-- Lignes de formulaire -->
-        <label class="formLabel">Name</label>
-
-        <label class="formLabel">Age</label>
-        <div class="formRow">
-          <div class="formGroup" style="flex:2;">
-            <label>Street</label>
-            <input {{age}} type="text" name="AddressStreet" />
-          </div>
-          <div class="formGroup">
-            <label>City Name</label>
-            <input type="text" name="AddressCity" />
-          </div>
-        </div>
+        <!-- 1) Age -->
         <div class="formRow">
           <div class="formGroup">
-            <label>State/Province</label>
-            <input type="text" name="AddressState" />
-          </div>
-          <div class="formGroup">
-            <label>Zip Code</label>
-            <input type="text" name="AddressZipCode" />
+            <label>Age</label>
+            <input type="text" name="Age" value="{{age}}" />
           </div>
         </div>
+        <!-- 2) Genre -->
         <div class="formRow">
           <div class="formGroup">
-            <label>Email</label>
-            <input type="email" name="AddressEmail" />
-          </div>
-          <div class="formGroup">
-            <label>Phone</label>
-            <input type="tel" name="AddressPhone" />
+            <label>Genre</label>
+            <input type="text" name="Genre" value="{{genre}}" />
           </div>
         </div>
-
-        <hr />
-
+        <!-- 3) Mon Status -->
         <div class="formRow">
           <div class="formGroup">
-            <label>Experience Level</label>
-            <select name="Experience">
-              <option value="">Please Select...</option>
-              <option value="<1 Year">&lt; 1 Year</option>
-              <option value="1-2 Years">1-2 Years</option>
-              <option value="2-5 Years">2-5 Years</option>
-              <option value="5+ Years">5+ Years</option>
-            </select>
+            <label>Mon Status</label>
+            <input type="text" name="MonStatus" value="{{monStatus}}" />
           </div>
+        </div>
+        <!-- 4) Ville d'habitation -->
+        <div class="formRow">
           <div class="formGroup">
-            <label>Required Salary</label>
-            <select name="Salary">
-              <option value="">Please Select...</option>
-              <option value="$40,000">$40,000</option>
-              <option value="$60,000">$60,000</option>
-              <option value="$80,000">$80,000</option>
-              <option value="$100,000">$100,000</option>
-            </select>
+            <label>Ville d'habitation</label>
+            <input type="text" name="Ville" value="{{ville}}" />
           </div>
         </div>
-
-        <hr />
-
-        <!-- Position applying to -->
-        <label class="formLabel">Position Applying To</label>
+        <!-- 5) Niveau de religion (famille) -->
         <div class="formRow">
-          <div class="formGroup" style="display: flex; gap: 15px;">
-            <div>
-              <input type="radio" name="Position" value="Intern" id="Intern" />
-              <label for="Intern">Intern</label>
-            </div>
-            <div>
-              <input type="radio" name="Position" value="ProductLead" id="ProductLead" />
-              <label for="ProductLead">Product Lead</label>
-            </div>
-            <div>
-              <input type="radio" name="Position" value="SalesManager" id="SalesManager" />
-              <label for="SalesManager">Sales Manager</label>
-            </div>
-            <div>
-              <input type="radio" name="Position" value="Developer" id="Developer" />
-              <label for="Developer">Developer</label>
-            </div>
+          <div class="formGroup">
+            <label>Niveau de religion (famille)</label>
+            <input type="text" name="ReligFam" value="{{religFam}}" />
           </div>
         </div>
-
-        <!-- How did you hear about us? -->
-        <label class="formLabel">How did you hear about us?</label>
+        <!-- 6) Niveau de religion -->
         <div class="formRow">
-          <div class="formGroup" style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <div>
-              <input type="checkbox" name="HearAboutUs[LinkedIn]" id="LinkedIn" />
-              <label for="LinkedIn">LinkedIn</label>
-            </div>
-            <div>
-              <input type="checkbox" name="HearAboutUs[Website]" id="Website" />
-              <label for="Website">Website</label>
-            </div>
-            <div>
-              <input type="checkbox" name="HearAboutUs[Event]" id="Event" />
-              <label for="Event">Event</label>
-            </div>
-            <div>
-              <input type="checkbox" name="HearAboutUs[FamilyFriend]" id="FamilyFriend" />
-              <label for="FamilyFriend">Family/Friend</label>
-            </div>
-            <div>
-              <input type="checkbox" name="HearAboutUs[SocialMedia]" id="SocialMedia" />
-              <label for="SocialMedia">Social Media</label>
-            </div>
-            <div>
-              <input type="checkbox" name="HearAboutUs[Other]" id="Other" />
-              <label for="Other">Other</label>
-            </div>
+          <div class="formGroup">
+            <label>Niveau de religion</label>
+            <input type="text" name="ReligPerso" value="{{religPerso}}" />
           </div>
         </div>
+        <!-- 7) Parcours -->
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Parcours</label>
+            <label type="text" name="Parcours" value="{{parcours}}" />
+          </div>
+        </div>
+        <!-- 8) Profession -->
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Profession</label>
+            <input type="text" name="Profession" value="{{profession}}" />
+          </div>
+        </div>
+        <!-- 9) Description -->
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Description</label>
+            <input type="text" name="Description" value="{{description}}" />
+          </div>
+        </div>
+        <!-- 10) Qualités recherchés -->
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Qualités recherchés</label>
+            <input type="text" name="QualitesRech" value="{{qualitesRech}}" />
+          </div>
+        </div>
+        <!-- 11) Faire L’Alya -->
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Faire L’Alya</label>
+            <input type="text" name="FaireAlya" value="{{faireAlya}}" />
+          </div>
+        </div>
+        <!-- 12) Communauté Fréquenté -->
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Communauté Fréquenté</label>
+            <input type="text" name="Communaute" value="{{communaute}}" />
+          </div>
+        </div>
+        <!-- 13) Numéro à contacter + Photo -->
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Numéro à contacter</label>
+            <input type="text" name="Contact" value="{{contact}}" />
+          </div>
+          <br/>
+          <br/>
 
-       
-      
+          <div class="formRow">
+            <div class="formGroup">
+              <img src="{{photo}}" alt="Photo de profil" style="max-width: 120px; border-radius: 4px; margin-top: 6px;" />
+            </div>
+          
+        </div>
+      </div>
     </div>
   </body>
 </html>

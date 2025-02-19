@@ -83,15 +83,25 @@ async function generatePdfFromEntry(page) {
       height: "20mm",
       contents: {
         default: `
-          <div style="text-align:center; font-size:10px; color:#777;">
-            &copy; 2025 Shidouhim. Tous droits réservés | Contact: 317.123.8765
-            <br />
-            Page <span style="font-weight:bold;">[page]</span> / [topage]
+          <div style="
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #f2f2f2;
+            color: #333;
+            text-align: center;
+            font-size: 10px;
+            padding: 5px;
+          ">
+            <br/>
+            &copy; 2025 Shidouhim. Tous droits réservés Orelabk6 | Contact: 07.81.62.23.57
+            <br/>
+            <br/>
+
           </div>
         `
       }
     }
   };
+  
 
   return new Promise((resolve, reject) => {
     pdf.create(htmlContent, options).toBuffer((err, buffer) => {
