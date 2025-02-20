@@ -2,13 +2,9 @@ const fs = require("fs");
 const path = require("path");
 const pdf = require("html-pdf");
 
-/**
- * Construit le HTML à partir du template et des données Notion
- */
 function generateHtmlFromTemplate(page) {
   const props = page.properties;
 
-  // Récupération des propriétés (en faisant attention aux espaces et types)
   const nom = props["Nom"]?.title?.[0]?.plain_text || "N/A";
   const telephone = props["Téléphone "]?.phone_number || "N/A";
   const ville = props["Ville d'habitation"]?.rich_text?.[0]?.plain_text || "N/A";
@@ -17,12 +13,14 @@ function generateHtmlFromTemplate(page) {
   const faireAlya = props["Faire L’Alya"]?.multi_select?.map(opt => opt.name).join(", ") || "N/A";
   const religPerso = props["Niveau de religion "]?.rich_text?.[0]?.plain_text || "N/A";
 
-  // Pour la photo (champ "Ma photo"), on récupère l'URL du premier fichier s'il existe
   let photo = "N/A";
   if (props["Ma photo"]?.files?.length) {
     const fileObj = props["Ma photo"].files[0];
-    // Selon si c'est un file ou un external
     photo = fileObj.file?.url || fileObj.external?.url || "N/A";
+  }
+  // Si aucune photo, on utilise le placeholder
+  if(photo === "N/A"){
+    photo = "placeholder.jpg";
   }
 
   const parcours = props["Parcours"]?.rich_text?.[0]?.plain_text || "N/A";
@@ -35,11 +33,9 @@ function generateHtmlFromTemplate(page) {
   const contact = props["Numéro à contacter"]?.rich_text?.[0]?.plain_text || "N/A";
   const description = props["Description "]?.rich_text?.[0]?.plain_text || "N/A";
 
-  // Charger le template HTML
   const templatePath = path.join(__dirname, "templates", "pdfTemplate.html");
   let html = fs.readFileSync(templatePath, "utf-8");
 
-  // Remplacer les placeholders {{...}} par les valeurs récupérées
   html = html
     .replace(/{{nom}}/g, nom)
     .replace(/{{telephone}}/g, telephone)
@@ -62,26 +58,16 @@ function generateHtmlFromTemplate(page) {
   return html;
 }
 
-/**
- * Génére le PDF en buffer depuis la page Notion
- * avec un footer répété sur chaque page (pagination, etc.).
- */
-async function generatePdfFromEntry(page) {
-  const htmlContent = generateHtmlFromTemplate(page);
-
-  // Options pour wkhtmltopdf (via html-pdf)
-  // Ici, on ajoute un footer qui se répète sur chaque page avec Page [page]/[topage].
+async function generatePdfFromEntry(page, includePhoto) {
+  let htmlContent = generateHtmlFromTemplate(page);
+  if (!includePhoto) {
+    htmlContent = htmlContent.replace(/<div class="photo-container">[\s\S]*?<\/div>/, '');
+  }
   const options = {
-    format: 'A4',
-    border: {
-      top: "1cm",
-      right: "1cm",
-      bottom: "1cm",
-      left: "1cm"
-    },
-    // Amélioration du rendu
+    format: "A4",
+    border: { top: "1cm", right: "1cm", bottom: "1cm", left: "1cm" },
     quality: "100",
-    printBackground: true, // Important pour les couleurs de fond
+    printBackground: true,
     preferCSSPageSize: true,
   };
 
@@ -94,5 +80,3 @@ async function generatePdfFromEntry(page) {
 }
 
 module.exports = { generatePdfFromEntry };
-
-
